@@ -20,7 +20,6 @@
 #include <stdint.h>
 #include <stdio.h>
 #include <time.h>
-#include <stdlib.h>
 #include "isort.h"
 
 	int
@@ -69,6 +68,12 @@ main ( int argc, char *argv[] )
 	return EXIT_SUCCESS;
 }				/* ----------  end of function main  ---------- */
 
+/* 
+ * ===  FUNCTION  ======================================================================
+ *         Name:  isort
+ *  Description:  implementation of the insertion sort algorithm
+ * =====================================================================================
+ */
 	void
 isort (int32_t *src, size_t len, smode_t mode)
 {
