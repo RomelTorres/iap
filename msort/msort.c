@@ -94,13 +94,11 @@ void merge(int32_t *src, uint32_t p, uint32_t q, uint32_t r)
 	i = 0;
 	j = 0;
 	for ( k = p; k <= r; k += 1 ) {
-		if (L[i] <= R[j])
-		{
+		if (L[i] <= R[j]){
 			src[k] = L[i];
 			i = i + 1;
 		}
-		else
-		{
+		else{
 			src[k] = R[j];
 			j = j + 1;
 		}
