@@ -17,4 +17,4 @@
  */
 
 void msort (int32_t *src, uint32_t start,uint32_t finish);
-void merge (int32_t *src, uint32_t p, uint32_t q, uint32_t r);	
+void merge (int32_t *src, uint32_t p, uint32_t q, uint32_t r);
