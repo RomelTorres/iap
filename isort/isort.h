@@ -20,6 +20,5 @@
 #include <stdint.h>
 #include <stdio.h>
 
-typedef enum smode_t {ISORT_UP,ISORT_DOWN} smode_t;
-	void
-isort (int32_t *src, size_t len, smode_t mode);
+typedef enum i_mode_t {ISORT_UP,ISORT_DOWN} i_mode_t;
+void isort (int32_t *src, size_t len, i_mode_t mode);

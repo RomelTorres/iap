@@ -19,6 +19,8 @@
 #include <math.h>
 #include <stdint.h>
 #include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
 /* --------------------------------------------------------------------------*/
 /**
  * @Synopsis  Creates a constrained random array
@@ -34,7 +36,8 @@ int32_t *cr_rnd_arr(size_t len, int32_t cnt)
 {
 	int32_t i;
 	int32_t *rnd_arr;
-	rnd_arr = malloc(len * sizeof(int32_t));
+	srand(time(NULL));
+	rnd_arr = (int32_t *) malloc(len * sizeof(int32_t));
 	for( i= 0; i < len; i++){
 		rnd_arr[i] = (int32_t) (rand() % (2*cnt) - cnt);
 	}
@@ -53,7 +56,7 @@ int32_t *cr_rnd_arr(size_t len, int32_t cnt)
  ----------------------------------------------------------------------------*/
 void print_arr(int32_t *arr, size_t len){
 	int32_t i;
-	for ( i = 0; i < len, i++){
+	for ( i = 0; i < len; i++){
 		printf(" %d",arr[i]);
 	}
 	printf("\n");

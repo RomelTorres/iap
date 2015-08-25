@@ -1,12 +1,12 @@
 /*
  * =====================================================================================
  *
- *       Filename:  msort.h
+ *       Filename:  utils.h
  *
  *    Description:  
  *
  *        Version:  1.0
- *        Created:  16.08.2015 14:10:33
+ *        Created:  25.08.2015 21:12:32
  *       Revision:  none
  *       Compiler:  gcc
  *
@@ -16,6 +16,5 @@
  * =====================================================================================
  */
 
-typedef enum m_mode_t {MSORT_UP,MSORT_DOWN} m_mode_t;
-void msort (int32_t *src, uint32_t start, uint32_t finish, m_mode_t mode);
-void merge (int32_t *src, uint32_t p, uint32_t q, uint32_t r, m_mode_t mode);
+ int32_t *cr_rnd_arr(size_t len, int32_t cnt);
+ void print_arr(int32_t *arr, size_t len);

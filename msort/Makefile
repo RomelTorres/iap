@@ -1,7 +1,8 @@
-CC=gcc
-CFLAGS=-I -ld
-DEPS = msort.h
-OBJ = msort.o 
+CC = gcc
+CFLAGS =-I -ld
+DEPS = msort.h utils.h
+OBJ = msort.o utils.o
+VPATH =../utils
 
 %.o: %.c $(DEPS)
 		$(CC) -c -o $@ $< $(CFLAGS)

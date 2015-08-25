@@ -21,37 +21,55 @@
 #include <stdint.h>
 #include <string.h>
 #include "msort.h"
+#include "../utils/utils.h"
 
 int main( int argc, char *argv[] )
 {
-	int32_t i;
-	int32_t src[5] = {5,545,4,78,-4};
-	msort(src,0,4);
-	for (i = 0; i < 5; i++){
-		printf(" %d",src[i]);
+	size_t len;
+	uint32_t i;
+	int32_t *src;
+	int32_t max;
+
+	if(argc < 3){
+		printf("Correct Usage msort len max\n");
+		perror("Incorrect msort.c usage");
+		return EXIT_FAILURE;
 	}
-	printf("\n");
+
+	len = (size_t) atoi(argv[1]);
+        max = (int32_t) atoi(argv[2]);
+	printf("Creating random array of input %d and constrained to %d\n",
+		(int) len, (int) max);
+	src = cr_rnd_arr(len, max);
+	print_arr(src,len);
+	printf("Printing UP SORTED array\n");
+	msort(src, 0, len - 1, MSORT_UP);
+	print_arr(src, len);
+	printf("Printing DOWN SORTED array\n");
+	msort(src, 0, len - 1, MSORT_DOWN);
+	print_arr(src, len);
+	free(src);
 	return EXIT_SUCCESS;
 }
 
 /* --------------------------------------------------------------------------*/
-/**
- * @Synopsis  recursive merge sort with a run time of nlog(n)
+/*** @Synopsis  recursive merge sort with a run time of nlog(n)
  *
  * @Param src pointer to array to be sorted
  * @Param start starting point
- * @Param finishfinishing point
+ * @Param finish finishing point
+ * @param mode UP or DOWN mode
  */
 /*
  ----------------------------------------------------------------------------*/
-void msort(int32_t *src, uint32_t start,uint32_t finish)
+void msort(int32_t *src, uint32_t start, uint32_t finish, m_mode_t mode)
 {
 	uint32_t q;
 	if (start < finish){
 		q = (uint32_t) (start + finish)/2 ;
-		msort(src,start,q);
-		msort(src,q + 1,finish);
-		merge(src,start,q,finish)
+		msort(src, start, q, mode);
+		msort(src,q + 1, finish, mode);
+		merge(src,start,q,finish, mode);
 	}
 }
 
@@ -67,7 +85,7 @@ void msort(int32_t *src, uint32_t start,uint32_t finish)
  */
 /*
  ----------------------------------------------------------------------------*/
-void merge(int32_t *src, uint32_t p, uint32_t q, uint32_t r)
+void merge(int32_t *src, uint32_t p, uint32_t q, uint32_t r, m_mode_t mode)
 {
 	uint32_t n1;
 	uint32_t n2;
@@ -76,8 +94,7 @@ void merge(int32_t *src, uint32_t p, uint32_t q, uint32_t r)
 	uint32_t k;
 	int32_t *L;
 	int32_t *R;
-	i
-		n1 = q - p + 1;
+	n1 = q - p + 1;
 	n2 = r - q;
 	L = (int32_t*) malloc(n1*sizeof(int32_t));
 	R = (int32_t*) malloc(n2*sizeof(int32_t));
@@ -89,12 +106,19 @@ void merge(int32_t *src, uint32_t p, uint32_t q, uint32_t r)
 		R[j] = src[q + j + 1];
 	}
 	/*TODO: rewrite the for loop to avoid the usage of sentinel cards*/
-	L[n1] = INT32_MAX;
-	R[n2] = INT32_MAX;
+	if (mode == MSORT_UP) {
+		L[n1] = INT32_MAX;
+		R[n2] = INT32_MAX;
+	}
+	else {
+		L[n1] = INT32_MIN;
+		R[n2] = INT32_MIN;
+	}
 	i = 0;
 	j = 0;
 	for ( k = p; k <= r; k += 1 ) {
-		if (L[i] <= R[j]){
+		if (((L[i] <= R[j]) && (mode == MSORT_UP)) ||
+		    ((L[i] >= R[j]) && (mode == MSORT_DOWN))){
 			src[k] = L[i];
 			i = i + 1;
 		}

@@ -43,28 +43,15 @@ int main ( int argc, char *argv[] )
 	len = (size_t) atoi(argv[1]);
 	max = (int32_t) atoi(argv[2]);
 	printf("Creating random array of input %d and constrained to %d\n",
-	       (int) len, (int) max);
-	src = (int32_t *) malloc(sizeof(int32_t)*len);
-	for (i = 0; i < len; i++)
-	{
-		//generate random number between -max and max
-		src[i] = (int32_t) (rand() % (2*max) - max);
-		printf("%d ",src[i]);
-	}
-	printf("\n");
-	isort(src,len,ISORT_UP);
-	printf("Printing sorted (up) array:\n");
-	for ( i = 0; i < len; i += 1 ){
-		printf("%d ",src[i]);
-	}
-	printf("\n");
-	isort(src,len,ISORT_DOWN);
-	printf("Printing sorted (down) array:\n");
-	for ( i = 0; i < len; i += 1 ){
-		printf("%d ",src[i]);
-	}
-	printf("\n");
-
+		(int) len, (int) max);
+	src = cr_rnd_arr(len, max);
+	print_arr(src,len);
+	printf("Printing UP SORTED array\n");
+	isort(src, len, ISORT_UP);
+	print_arr(src, len);
+	printf("Printing DOWN SORTED array\n");
+	isort(src, len, ISORT_DOWN);
+	print_arr(src,len);
 	free(src);
 	return EXIT_SUCCESS;
 }
@@ -77,7 +64,7 @@ int main ( int argc, char *argv[] )
  * @param len Length of the array pointed by src
  * @param mode sorting modes: UP/DOWN
  */
-void isort (int32_t *src, size_t len, smode_t mode)
+void isort (int32_t *src, size_t len, i_mode_t mode)
 {
 	int32_t i;
 	int32_t j;
