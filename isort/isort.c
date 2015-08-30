@@ -21,6 +21,7 @@
 #include <stdio.h>
 #include <time.h>
 #include "isort.h"
+#include "../utils/utils.h"
 
 /**
  * @brief main Example used for testing the algorithm, the correct usage ./isort max cnt. 
